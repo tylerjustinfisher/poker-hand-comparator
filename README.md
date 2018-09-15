@@ -21,7 +21,7 @@ Each of these scripts runs on simple text inputs and outputs. The outputs should
 
 NOTE: There is *no* error-checking implemented, because the idea of the code was to make it as short as possible, and we were assuming that we would feed correct inputs into the programs. So, invalid inputs will simply break the scripts. They'll cooperate if you enter your input correctly. Comments in the scripts should describe how the inputs should be formed.
 
-NOTE: If a script has a weird name and the code looks strange and ugly, it's because I was playing code golf with it. That is, I was trying to make it as short as possible, for a contest with a friend. <sub>(Indeed, that friend's code can be found in the file `ekshesh-code.py`.)</sub> The shortened not really meant to be legible, just functional in as few lines (or characters) as possible. If you're trying to see how it works, I recommend you look at `generateAndCompare.py`. <sub>If you're digging in any other file, be aware that my random variable names are random and meaningless. (Though, some are actually commented fairly well. I wrote this 18 months ago, in just a few hours while procrastinating from studying for a midterm, so forgive me.)</sub>
+NOTE: If a script has a weird name and the code looks strange and ugly, it's because I was playing code golf with it. That is, I was trying to make it as short as possible, for a contest with a friend. (That friend's code can be found in the file `ekshesh-code.py`.) The shortened scripts are not really meant to be legible, just functional in as few lines (or characters) as possible. If you're trying to see how this code works, I recommend you just look at `generateAndCompare.py`. <sub>If you're digging in any other file, be aware that my random variable names are random and meaningless. (Though, some are actually commented fairly well. I wrote this 18 months ago, in just a few hours while procrastinating from studying for a midterm, so forgive me.)</sub>
 
 
 *****
@@ -31,7 +31,7 @@ I'll give a brief rundown of what it actually MEANS to compare two hands in poke
 
 ## Basic rules of texas hold'em ##
 - You have 2 cards, as do each of your opponents.
-- There will be 5 "community cards" dealt in the middle.' Those are for everyone to share.
+- There will be 5 "community cards" dealt in the middle of the table. Those are for everyone to share.
 - Out of your 7 total cards, you want to make the best possible hand *of 5 cards*.
 - You only care about the 5 cards that comprise the best hand. The other 2 left over are irrelevant.
 - It does NOT matter whether the cards are 2 from your hand + 3 from the board, or 1 + 4, or 0 + 5. The best 5-card hand wins.
@@ -41,11 +41,11 @@ I'll give a brief rundown of what it actually MEANS to compare two hands in poke
 The short way to denote an individual card is by referring to its *rank* with a single character (digit 2-9 or uppercase letter T, J, Q, K, or A), followed by its *suit* with a single character (lowercase letter s, h, c, or d). Here are some examples of individual cards, and how they'd be written in card notation:
 - 2 of hearts: **2h** 
 - 6 of clubs: **6c**
-- ten of hearts: **Th**
-- queen of diamonds: **Qd**
-- ace of spades: **As**
+- Ten of hearts: **Th**
+- Queen of diamonds: **Qd**
+- Ace of spades: **As**
 
-With this in mind, defining an entire hand is straightforward: it's just a combination of cards. So, if you have the ace of spades and the ten of hearts, you have: **AsTh**. Similarly, a board consisting of all five of the above cards can be written like this: **AsQdTh6c2h**
+With this in mind, defining an entire hand is straightforward: it's just a combination of cards. So, if you have the ace of spades and the ten of hearts, you have: **AsTh**. Similarly, a board consisting of all five of the above cards can be written like this: **AsQdTh6c2h**.
 
 ### RANK (card number) ###
 - **2**, **3**, **4**, **5**, **6**, **7**, **8**, and **9** correspond to those exact numbered cards. 
@@ -56,19 +56,19 @@ With this in mind, defining an entire hand is straightforward: it's just a combi
 - The higher the card, the higher the value, and thus the better. Higher cards win.
 
 ### SUIT (symbol) ###
-- **s** = spades; **h** = hearts; **c** = clubs; **d** = diamonds
-- all suits are equivalently valuable
+- Suits are denoted with lowercase letters: **s** = spades; **h** = hearts; **c** = clubs; and **d** = diamonds.
+- All suits are equivalently valuable.
 
 ## Terminology and hand-related information: ##
-- the term "pair" means 2 cards of the same rank (number)
-- "three-of-a-kind" and "four-of-a-kind" mean 3 or 4 cards of the same rank
-- ("five-of-a-kind" can't exist, because there are only 4 cards of each rank in a deck)
-- "two pair" means two *different* pairs (for example, two Ks and two 8s)
-- ("three pair" can't exist because hands only consist of 5 cards, and three pairs would require 6)
-- "straight" means five consecutive cards, by rank (for example, `2-3-4-5-6` or `9-T-J-Q-K`)
-  - this means that `A-2-3-4-5` and `T-J-Q-K-A` are both straights
-  - NOTE: straights do NOT "wrap around" from high to low. That is, `Q-K-A-2-3` and similar hands are NOT straights
-- "flush" means five cards of the same suit. It doesn't matter what ranks they are
+- "Pair" means 2 cards of the same rank (number).
+- "Three-of-a-kind" and "four-of-a-kind" mean 3 or 4 cards of the same rank.
+- ("Five-of-a-kind" can't exist, because there are only 4 cards of each rank in a deck.)
+- "Two pair" means two *different* pairs (for example, two Ks and two 8s).
+- ("Three pair" can't exist because hands only consist of 5 cards, and three pairs would require 6.)
+- "Straight" means five consecutive cards, by rank (for example, `2-3-4-5-6` or `9-T-J-Q-K`).
+  - This means that `A-2-3-4-5` and `T-J-Q-K-A` are both straights.
+  - <sub>NOTE: straights do NOT "wrap around" from high to low. That is, `Q-K-A-2-3` and similar hands are NOT straights.</sub>
+- "Flush" means five cards of the same suit. It doesn't matter what ranks they are.
 
 ## Hand rankings, in order from best to worst: ##
 - Straight flush: 5 consecutive cards, all of the same suit. (approximate rarity: 1/3200 hands)
@@ -85,19 +85,32 @@ With this in mind, defining an entire hand is straightforward: it's just a combi
 - The player with a hand that is higher up on the above hierarchy wins.
   - Usually this simply means determining which player has higher ranked cards.
 - If two players are at the same step of the hierarchy, the tie-breaker goes as follows:
-  - When comparing pairs, the one that is a higher rank wins. So, `two aces` beats `two 7s`. If the pairs are the same (i.e. both players have two 9s), then look at the next highest card each player has. <sub>(Remember: a player's hand is made up of FIVE cards, and the pair is only the first two of those.)</sub> If that next highest card, called the "kicker", is *also* the same, then look at the *next* highest card after that, i.e. the "second kicker." Repeat, if needed, one more time, with the "third kicker." If the pair is the same AND all three kickers are the same, the hand is a draw. <sub>So, if two players have the same pair, but one also has a `Q, T, and 5`, that player beats someone else who has a `Q, 8, and 7`, or someone who has a `J, T, and 9`, or even someone who has a `Q, T, and 4`.</sub>
-  - When comparing two-pairs, first compare the higher pair, and, if it's tied, then compare the lower one. So, `two kings and two 9s` beats `two kings and two 6s`, and they both beat `two jacks and two tens`. If BOTH pairs are the same, look at the next highest card (i.e. the fifth card in the hand) and see which one is higher. <sub>So, two pairs with a king as the "kicker" beats the same two pairs with a 7 as the kicker.</sub>
-  - When comparing trips (three-of-a-kind), check the first and second "kickers", same as when comparing pairs. As soon as one player has a better kicker, that player wins. <sub>So, `trip-queens with an Ace kicker` beats `trip-queens with a Ten kicker`</sub>
-  - When comparing quads (four-of-a-kind), check the one kicker that remains, same as above.
-  - When comparing full-houses, first compare the three-of-a-kind. If it's the same for both players, then compare the pair. If that's the same, too, that is already 5 cards, so there are no kickers to check & the players draw. <sub>So, `three 9s and two 8s` beats `three 8s and two 9s.`</sub>
-  - When comparing straights, the one that *ends* higher wins. So, `3-4-5-6-7` beats `A-2-3-4-5`. There are no kickers, because a straight must consist of 5 cards already.
-  - When comparing flushes, the one with the highest card within that flush wins. If they have the same highest card, then the second-highest suited card wins. If it's still tied, then check the third, fourth, and fifth. <sub>So, a flush of `A-K-9-8-5` beats a flush of `A-K-9-7-6`. There are no kickers, because a flush consists of 5 cards already.</sub>
+  - When comparing **pairs**, the one that is a higher rank wins. So, `two aces` beats `two 7s`.
+     - If the pairs are the same (i.e. both players have two 9s), then look at the *next highest* card each player has. <sub>(Remember: a player's hand is made up of FIVE cards, and the pair itself is only the first two of those.)</sub> 
+     - If that next highest card, called the "kicker", is *also* the same, then look at the *next* highest card after that, i.e. the "second kicker." Repeat, if needed, one more time, with the "third kicker." 
+     - If the pair is the same AND all three kickers are the same, the hand is a draw. 
+     - <sub>So, if two players have the same pair, but one also has a `Q, T, and 5`, that player beats someone else who has a `Q, 8, and 7`, or someone who has a `J, T, and 9`, or even someone who has a `Q, T, and 4`.</sub>
+  - When comparing **two-pairs**, first compare the higher pair, and, if it's tied, then compare the lower one.
+    - So, `two kings and two 9s` beats `two kings and two 6s`, and they both beat `two jacks and two tens`. If BOTH pairs are the same, look at the next highest card (i.e. the fifth card in the hand) and see which one is higher. <sub>So, two pairs with a king as the "kicker" beats the same two pairs with a 7 as the kicker.</sub>
+  - When comparing **trips** (three-of-a-kind), check the first and second "kickers", same as when comparing pairs. As soon as one player has a better kicker, that player wins.
+    - <sub>So, `trip-queens with an Ace kicker` beats `trip-queens with a Ten kicker`.</sub>
+  - When comparing **quads** (four-of-a-kind), check the one kicker that remains, same as above.
+    - <sub>So, `quad-queens with an Ace kicker` beats `quad-queens with a Ten kicker`.</sub>
+  - When comparing **full-houses**, first compare the three-of-a-kind to see which one's higher.
+    - If that's the same for both players, then compare the pair. 
+    - If the pair is the same, too, there are no more kickers to check (because we've looked at all 5 cards in total), so the players draw.
+    - <sub>So, `three 9s and two 8s` beats `three 8s and two 9s.`</sub>
+  - When comparing **straights**, the one that *ends* higher wins.
+    - So, `3-4-5-6-7` beats `A-2-3-4-5`. There are no kickers, because a straight must consist of 5 cards already.
+  - When comparing **flushes**, the one with the highest card within that flush wins. 
+    - If they have the same highest card, then the second-highest suited card wins. If it's still tied, then check the third, fourth, and fifth.
+    - <sub>So, a flush of `A-K-9-8-5` beats a flush of `A-K-9-7-6`. There are no kickers, because a flush consists of 5 cards already.</sub>
 
 ## Other terminology you may see in the code, especially in the comments ##
-- "SF" means straight flush
-- "boat" is equivalent to "full house", i.e. three-of-a-kind plus a separate pair.
-- "set" is equivalent, for the sake of this code anyway, to "trips", i.e. three-of-a-kind
-- "chop" means draw, or tie (as in you "chop" the pot into equal pieces and give it equally to each of the tie-ing players)
+- "SF" means straight flush.
+- "Boat" is equivalent to "full house", i.e. three-of-a-kind plus a separate pair.
+- "Set" is equivalent, for the sake of this code anyway, to "trips", i.e. three-of-a-kind.
+- "Chop" means draw, or tie (as in you "chop" the pot into equal pieces and give it equally to each of the tie-ing players).
 
 
 # Minutiae / FAQ ##
