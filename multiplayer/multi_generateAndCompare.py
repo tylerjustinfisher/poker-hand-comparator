@@ -1,4 +1,4 @@
-pre# Written by Tyler Fisher, 20 Feb 2017. For sample boards, see https://goo.gl/19jGRx
+# Written by Tyler Fisher, 20 Feb 2017. For sample boards, see https://goo.gl/19jGRx
 # Note: input must be given in the precise format described (there's no error-checking)
 import random
 ranks = ["just a high card","one pair","two pair","trips","a straight","a flush","a boat","quads","a straight flush"]
