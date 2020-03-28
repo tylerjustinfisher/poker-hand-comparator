@@ -2,7 +2,7 @@
 These scripts compare two or more Texas Hold'Em hands to one another, on a given board, and determine which hand wins.
 
 ## Contact ##
-@author **Tyler Fisher** (tjfisher[at]gmail[dot]com)  
+@author **Tyler Fisher** (tjfisher95[at]gmail[dot]com)  
 @date Feb 2017. Modified Sep 2018.
 
 ## Requirements ##
