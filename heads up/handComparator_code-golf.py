@@ -2,7 +2,7 @@
 
 def firstHandIsBetter(h1, h2): # given two hands, with the 5 cards + rank + relevant kicker details, say which wins
     if h1[5] != h2[5]: return h1[5] > h2[5] # different ranks
-    if h1[5]==8 or h1[5]==4: return h1[2] > h2[2] if h1[2] != h2[2] else None # SF or straight: check middle card
+    if h1[5]==8 or h1[5]==4: return h1[2] > h2[2] if h1[2] != h2[2] else h1[4] < h2[4] if h1[4] != h2[4] else None # SF or straight: check middle card, and if equal check for Ace low.
     if h1[5]==5 or h1[5]==0: # flush or high card: check all five cards
         for wooper in range(5):
             if h1[4 - wooper] != h2[4 - wooper]: return h1[4 - wooper] > h2[4 - wooper]
